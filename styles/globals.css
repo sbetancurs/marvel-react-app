@@ -1,9 +1,41 @@
+@import url("https://fonts.cdnfonts.com/css/comic-neue-angular");
+
+:root {
+  --bg-primary: #f4f4f4;
+  --bg-secondary: #890e00;
+  --main-title: #473d3c;
+  --textcolor: #958c8c;
+  --fontsize-xs: 0.7rem;
+  --fontsize-sm: 1rem;
+  --fontsize-md: 1.5rem;
+  --fontsize-lg: 2rem;
+  --fontsize-xl: 2.5rem;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--textcolor);
+  font-size: var(--fontsize-md);
+  margin: 0;
+  font-family: "Comic Neue", sans-serif;
+}
+
+.btn {
+  background: #aa1518;
+  color: white;
+  padding: 0.5rem;
+  border: 0;
+  cursor: pointer;
+  min-width: 80px;
+
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: var(--bg-secondary);
 }
 
 a {
@@ -13,4 +45,18 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.alert {
+  display: grid;
+  place-items: center;
+  padding: 0 1rem;
+}
+.alert .alert-danger {
+  background-color: #ffbbbd;
+  border-radius: 5px;
+  border: 1px solid red;
+  padding: 1rem;
+  color: var(--main-title);
+  font-size: var(--fontsize-sm);
 }
