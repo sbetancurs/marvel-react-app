@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import useFavs from "hooks/useFavs";
+import useFavs from "../../hooks/useFavs";
 
-import { breakpoints } from "styles/theme";
+import { breakpoints } from "../../styles/theme";
 
 const Favourites = () => {
   const { favs, removeFav } = useFavs();

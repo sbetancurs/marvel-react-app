@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import Favourites from "components/Favourites";
+import Favourites from "../../components/Favourites";
 
 const Favs = () => {
   return (
