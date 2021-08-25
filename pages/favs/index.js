@@ -1,61 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import Favourites from "components/Favourites";
 
-const Favourites = () => {
-  const [favs, setFavs] = useState([]);
-
-  useEffect(() => {
-    const currentFavs = JSON.parse(localStorage.getItem("favs") || "[]");
-    setFavs(currentFavs);
-  }, []);
+const Favs = () => {
   return (
     <>
       <div className='container'>
-        <div className='wrapper'>
-          {favs.length > 0 &&
-            favs.map((fav) => (
-              <div key={fav.id} className='fav'>
-                <img
-                  className='fav-image'
-                  src={`${fav.thumbnail.path}.${fav.thumbnail.extension}`}
-                  alt={fav.name}
-                />
-                {fav.name}
-              </div>
-            ))}
+        <div className='header'>
+          <div className='section-title'>
+            <img src='/icons/favourites.png' alt='favourites' />
+            My favourites
+          </div>
         </div>
+        <Favourites />
       </div>
       <style jsx>{`
         .container {
           min-height: 100vh;
           display: flex;
-          align-items: start;
-          justify-content: start;
+          align-items: center;
+          justify-content: center;
           flex-direction: column;
           padding-bottom: 5rem;
         }
         h1 {
           color: var(--main-title);
         }
-        .wrapper {
-          display: grid;
-          grid-template-columns: repeat(1, 1fr);
-        }
-        .fav {
+        .header {
           display: flex;
-          justify-content: start;
-          align-items: center;
-          padding: 1rem 0;
-          border: 1px solid gray;
+          flex-direction: column;
         }
-        .fav-image {
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
+        .section-title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--main-title);
+          font-weight: bold;
         }
       `}</style>
     </>
   );
 };
 
-export default Favourites;
+export default Favs;
