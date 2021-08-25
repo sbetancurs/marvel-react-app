@@ -15,7 +15,7 @@ const Menu = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.pathname]);
 
   const handleNavigation = (e, path) => {
     if (currentSession) {
@@ -36,7 +36,7 @@ const Menu = () => {
   return (
     <>
       <nav>
-        <a className='hide-icon' onClick={(e) => handleNavigation(e, "favs")}>
+        <a className='icon' onClick={(e) => handleNavigation(e, "favs")}>
           <img
             className='link-icon'
             src='/icons/favourite-star.svg'
@@ -46,7 +46,7 @@ const Menu = () => {
         <a className='marvel-icon' onClick={(e) => handleNavigation(e, "/")}>
           <img className='marvel' src='/images/marvel-icon.png' alt='marvel' />
         </a>
-        <a className='hide-icon' onClick={(e) => handleNavigation(e, "login")}>
+        <a className='icon' onClick={(e) => handleNavigation(e, "login")}>
           <img className='link-icon' src='/icons/logout.png' alt='logout' />
         </a>
         <style jsx>{`
@@ -73,7 +73,7 @@ const Menu = () => {
             top: -45%;
           }
 
-          .hide-icon {
+          .icon {
             visibility: ${currentSession ? "visible" : "hidden"};
           }
         `}</style>

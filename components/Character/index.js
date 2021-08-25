@@ -1,69 +1,55 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+import { breakpoints } from "../../styles/theme";
 
-import { breakpoints } from "styles/theme";
+import Loader from "../Loader";
 
-const Character = ({ character, favs, setFavs, isFav }) => {
-  const addFav = (e, fav) => {
-    const newFav = { id: fav.id, name: fav.name, thumbnail: fav.thumbnail };
+import useFavs from "../../hooks/useFavs";
 
-    if (!favs.some((x) => x.id === newFav.id)) {
-      const newFavs = favs.slice();
-      newFavs.push(newFav);
-      setFavs(newFavs);
-      localStorage.setItem("favs", JSON.stringify(newFavs));
-    }
-  };
+const Character = ({ character }) => {
+  const { addFav, removeFav, isFav, loading } = useFavs();
 
-  const removeFav = (e, fav) => {
-    const { id } = fav;
-
-    const newFavs = favs.filter((x) => x.id !== id);
-    setFavs(newFavs);
-    localStorage.setItem("favs", JSON.stringify(newFavs));
-  };
+  const description = character.description
+    ? character.description
+    : "Oops!! Sorry, there is no description available for this character.";
 
   return (
-    <div className='character'>
-      <div className='card-body'>
-        <div className='left-content'>
-          <img
-            className='character-image'
-            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-            alt={character.name}
-          />
-          {!isFav && (
+    <>
+      {loading && <Loader />}
+      <div className='character'>
+        <div className='card-body'>
+          <div className='top-content'>
+            <img
+              className='character-image'
+              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+              alt={character.name}
+            />
+          </div>
+          <div className='bottom-content'>
+            <label className='name'>{character.name}</label>
+            <div className='info'>
+              <p title={description}>{description}</p>
+            </div>
+          </div>
+        </div>
+        <div className='card-footer'>
+          {!isFav(character.id) && (
             <button
+              disabled={loading}
               className='btn btn-favs'
-              onClick={(e) => addFav(e, character)}
+              onClick={(e) => addFav(character)}
             >
               Add fav ★
             </button>
           )}
-          {isFav && (
+          {isFav(character.id) && (
             <button
+              disabled={loading}
               className='btn btn-favs'
-              onClick={(e) => removeFav(e, character)}
+              onClick={(e) => removeFav(character)}
             >
               Remove Fav ☆
             </button>
           )}
-        </div>
-        <div className='right-content'>
-          <label className='name'>{character.name}</label>
-          <div className='info'>
-            <p title={character.description}>{character.description}</p>
-          </div>
-        </div>
-      </div>
-      <div className='card-footer'>
-        <div className='title'>Related comics</div>
-        <div className='comics'>
-          {character.comics.items.slice(0, 6).map((comic) => (
-            <a className='comic' key={comic.id} href='#' title={comic.name}>
-              ▸{comic.name}
-            </a>
-          ))}
         </div>
       </div>
       <style jsx>{`
@@ -71,59 +57,79 @@ const Character = ({ character, favs, setFavs, isFav }) => {
           background-color: white;
           color: var(--textcolor);
           height: 450px;
-          border: 1px solid black;
           width: 100%;
+          display: flex;
+          flex-direction: column;
+          padding: 0.5rem;
+          border-radius: 5px;
+          box-shadow: 1px 1px 10px black;
         }
         .card-body {
           display: flex;
-          height: 50%;
-          flex-direction: row;
+          height: 85%;
+          flex-direction: column;
+          border-radius: 5px;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          border-top: 1px solid gray;
+          border-left: 1px solid gray;
+          border-right: 1px solid gray;
         }
-        .left-content {
+        .top-content {
           position: relative;
-          min-width: 40%;
+          height: 35%;
+          display: flex;
+          justify-content: center;
+        }
+        .bottom-content {
+          padding: 0.5rem;
+          height: 75%;
+        }
+        .card-footer {
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          border-bottom: 1px solid gray;
+          border-left: 1px solid gray;
+          border-right: 1px solid gray;
+          border-radius: 5px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          height: 15%;
+          padding: 0.2rem 0;
         }
         .btn-favs {
-          position: absolute;
-          top: 65%;
-          left: 25%;
+          margin: 0;
           cursor: pointer;
         }
         .character-image {
           border-radius: 50%;
           box-shadow: 3px 2px 10px black;
-          left: -5%;
           position: absolute;
-          top: -5%;
+          top: -35%;
           width: 6rem;
           height: 6rem;
-        }
-        .right-content {
-          min-width: 60%;
-          padding: 0.5rem;
         }
         .name {
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
           color: var(--main-title);
           display: -webkit-box;
-          font-size: 1.3rem;
+          font-size: var(--fontsize-md);
           font-weight: bold;
           overflow: hidden;
           text-overflow: ellipsis;
-          width: 100%;
+          text-align: center;
         }
         .info {
-          width: 100%;
-          font-size: var(--fontsize-xs);
-          min-height: 65%;
+          font-size: var(--fontsize-sm);
         }
         p {
           margin: 0;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 9;
+          -webkit-line-clamp: 8;
           -webkit-box-orient: vertical;
         }
         button {
@@ -132,12 +138,6 @@ const Character = ({ character, favs, setFavs, isFav }) => {
         button:hover {
           transform: scale(1.2);
           transition: 0.5s;
-        }
-        .card-footer {
-          display: flex;
-          flex-direction: column;
-          padding: 0 0.5rem;
-          height: 50%;
         }
         .title {
           padding: 0.5rem 0;
@@ -169,19 +169,21 @@ const Character = ({ character, favs, setFavs, isFav }) => {
         }
 
         @media (min-width: ${breakpoints.ipad}) {
-          .character {
-            width: 450px;
+          .top-content {
+            height: 40%;
+          }
+
+          .bottom-content {
+            height: 60%;
           }
 
           .character-image {
             width: 8rem;
             height: 8rem;
-            left: -10%;
-            top: -10%;
           }
         }
       `}</style>
-    </div>
+    </>
   );
 };
 

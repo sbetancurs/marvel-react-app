@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-const USERNAME = "admin";
+const EMAIL = "admin@admin.com";
 const PASSWORD = "123";
 
 const Login = () => {
   const [login, setLogin] = useState({
-    username: "",
+    email: "",
     password: "",
     error: false,
   });
@@ -24,8 +24,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (USERNAME === login.username && PASSWORD === login.password) {
-      localStorage.setItem("session", USERNAME);
+    if (EMAIL === login.email && PASSWORD === login.password) {
+      localStorage.setItem("session", EMAIL);
       router.push("/");
     }
 
@@ -43,10 +43,10 @@ const Login = () => {
         <form className='form' onSubmit={handleSubmit}>
           <h1>Login</h1>
           <input
-            type='text'
-            name='username'
-            placeholder='username'
-            value={login.username}
+            type='email'
+            name='email'
+            placeholder='email'
+            value={login.email}
             onChange={handleChange}
           />
           <input
@@ -61,7 +61,7 @@ const Login = () => {
         {login.error && (
           <div className='alert'>
             <p className='alert-danger'>
-              Oops! The username or password is wrong, please check it!.
+              Oops! The email or password is wrong, please check it!.
             </p>
           </div>
         )}
@@ -82,7 +82,6 @@ const Login = () => {
           display: flex;
           flex-direction: column;
           width: 100%;
-          padding: 1rem;
         }
 
         input {
