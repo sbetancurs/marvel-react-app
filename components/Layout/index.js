@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Recomended</title>
+        <title>Marvel</title>
         <meta name='description' content='This app is for frontend test' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
