@@ -129,7 +129,7 @@ const Character = ({ character }) => {
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 8;
+          -webkit-line-clamp: 7;
           -webkit-box-orient: vertical;
         }
         button {
