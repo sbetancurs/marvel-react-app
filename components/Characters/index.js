@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 
-import { getAllCharacters } from "/services/apiClient";
+import { getAllCharacters } from "../../services/apiClient";
 
 import Character from "../Character";
 import Pagination from "../Pagination";
