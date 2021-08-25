@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 
 import { getAllCharacters } from "/services/apiClient";
 
-import Character from "/components/Character";
-import Pagination from "/components/Pagination";
+import Character from "../Character";
+import Pagination from "../Pagination";
 
-import { breakpoints } from "styles/theme";
+import { breakpoints } from "../../styles/theme";
 
-import usePagination from "hooks/usePagination";
+import usePagination from "../../hooks/usePagination";
 
 const Characters = ({ orderBy, search }) => {
   const [characters, setCharacters] = useState([]);

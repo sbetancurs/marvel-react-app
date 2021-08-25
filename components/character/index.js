@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { breakpoints } from "styles/theme";
+import { breakpoints } from "../../styles/theme";
 
-import Loader from "components/Loader";
+import Loader from "../Loader";
 
-import useFavs from "hooks/useFavs";
+import useFavs from "../../hooks/useFavs";
 
 const Character = ({ character }) => {
   const { addFav, removeFav, isFav, loading } = useFavs();
