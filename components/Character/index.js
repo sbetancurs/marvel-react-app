@@ -1,12 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from "next/router";
+
 import { breakpoints } from "../../styles/theme";
 
 import Loader from "../Loader";
 
 import useFavs from "../../hooks/useFavs";
 
-const Character = ({ character }) => {
+const Character = ({ character, detail = false }) => {
   const { addFav, removeFav, isFav, loading } = useFavs();
+  const router = useRouter();
+
+  const goToDetail = (id) => {
+    router.push(`/detail/${character.id}`);
+  };
 
   const description = character.description
     ? character.description
@@ -26,16 +33,27 @@ const Character = ({ character }) => {
           </div>
           <div className='bottom-content'>
             <label className='name'>{character.name}</label>
-            <div className='info'>
-              <p title={description}>{description}</p>
-            </div>
+            {!detail && (
+              <div className='info'>
+                <p title={description}>{description}</p>
+              </div>
+            )}
+            {detail && (
+              <>
+                <div className='comics'>
+                  {character.comics.items.slice(0, 6).map((comic) => (
+                    <div key={comic.id}>{comic.name}</div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className='card-footer'>
           {!isFav(character.id) && (
             <button
               disabled={loading}
-              className='btn btn-favs'
+              className='btn '
               onClick={(e) => addFav(character)}
             >
               Add fav ★
@@ -44,10 +62,15 @@ const Character = ({ character }) => {
           {isFav(character.id) && (
             <button
               disabled={loading}
-              className='btn btn-favs'
+              className='btn'
               onClick={(e) => removeFav(character)}
             >
               Remove Fav ☆
+            </button>
+          )}
+          {!detail && (
+            <button className='btn' onClick={(e) => goToDetail(character.id)}>
+              Detail +
             </button>
           )}
         </div>
@@ -98,9 +121,9 @@ const Character = ({ character }) => {
           height: 15%;
           padding: 0.2rem 0;
         }
-        .btn-favs {
+        .btn {
           margin: 0;
-          cursor: pointer;
+          margin-right: 0.5rem;
         }
         .character-image {
           border-radius: 50%;
@@ -148,9 +171,10 @@ const Character = ({ character }) => {
         .comics {
           font-size: var(--fontsize-xs);
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 5px;
           overflow: hidden;
+          height: 100%;
         }
         .comic {
           text-decoration: none;

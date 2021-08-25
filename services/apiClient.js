@@ -18,3 +18,11 @@ export const getAllCharacters = async (
   const data = await response.json();
   return data.data;
 };
+
+export const getCharacter = async (id) => {
+  let query = `ts=${ts}&apikey=${apiKey}&hash=${hash}`;
+
+  const response = await fetch(`${api_url}/characters/${id}?${query}`);
+  const data = await response.json();
+  return data.data;
+};
