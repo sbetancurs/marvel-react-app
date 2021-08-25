@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 
-import Characters from "../components/characters";
+import Characters from "../components/Characters";
 
 export default function Home() {
   const [orderBy, setOrderBy] = useState("");
