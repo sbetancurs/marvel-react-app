@@ -11,8 +11,9 @@ function useFavs() {
     setLoading(true);
     const newFav = { id: fav.id, name: fav.name, thumbnail: fav.thumbnail };
 
-    if (!favs.some((x) => x.id === newFav.id)) {
-      const newFavs = favs.slice();
+    const localFavs = JSON.parse(localStorage.getItem("favs") || "[]");
+    if (!localFavs.some((x) => x.id === newFav.id)) {
+      const newFavs = [...localFavs];
       newFavs.push(newFav);
 
       setFavs(newFavs);
