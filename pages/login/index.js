@@ -6,8 +6,8 @@ const PASSWORD = "123";
 
 const Login = () => {
   const [login, setLogin] = useState({
-    email: "",
-    password: "",
+    email: EMAIL,
+    password: PASSWORD,
     error: false,
   });
 
